@@ -1,32 +1,43 @@
 # YahboomJetsonNanoHelp
 A detailed guide for total beginners to help them overcome the limitations of the Jetson Nano 4GB boot with USB Board
 I spent 8 weeks trying to get the Jetson Nano optimised.  It is not an easy AI for beginners.  The Jetson Nano Tutorials by Paul McWhorter are brilliant but you end up running out of memory and space for everthing because the Jetson Nano is so limited out of the box.
+
 These are my personal notes that I put together that got me to a point where the Jetson was performing well enough to continue the Paul McWhorter tutorials and build something meaningful with the bot.
+
 Please don't judge me I am a total newbie that stuggled like mad to salvage this purchase.  I was ready to throw my Jetson Nano in the dustbin at a stage.  
-Hope this helps:
+Hope this helps AND PLEASE NOTE THIS IS A COLLECTION OF OTHER BRILLIANT PEOPLES HACKS THAT I HAD TO GET TO SO NO CREDIT TO ME:
 
-This is an important document.  It is the holy grail of how I got past the limitation on memory and disk storage.  There are a few things in this document that you must follow in order when prepping the Jetson Nano from scratch  Steps as follows:
+This is an important document.  It is the holy grail of how I got past the limitation on memory and disk storage.  Anyone that has struggled will note that despite having 64GB USB cards the initial disk image from Yahboom is limited to 32GB in total.  There are a few things in this document that you must follow in order when prepping the Jetson Nano from scratch  Steps as follows:
 
 
 
-**NOTES:  WILL UPLOAD A WORD VERSION THAT IS NEATER.**
+**NOTES:  I don't know how to upload a word doc for a neater view of this.  Ask me to send you one on email.
+
 •	Buy a 2 x 64GB USB drives.
-•	Download Balena Etcher so you can clone the original disk image onto the drive
-•	Boot the Jetson Nano with the new flashed image and note only 30GB of storage is allocated on the 64GB USB
-•	After booting up and getting onto your network and running the usual SUDO update and upgrade and clean commands and once you know all your software is up to date then;
-•	Remove LIBRE office and remove Thunderbird if you wish (not needed anymore because you have space after this exercise
-•	I normally remove Chrome and add Firefox as well
-•	Then do the following sequentially to create an optimal Jetson Nano
-o	SWAP File tutorial to create more RAM
-o	Increase space allocation Tutorial to create more space
-o	Upgrade Jetpack to 4.4.1 Tutorial
-o	Install Visual Studio Code (not Code-OSS this takes too much resources)
-o	Install python3 framework in VS Code and python interpreter
-o	Install Numpy, MatplotLIB
-o	You don’t have to install CV2 anymore as you are running 4.1.1 already
-o	Create a back up the USB by cloning it using Balena Etcher OR if you struggle with the size matching of the USB i.e. Balena keeps saying your USB is too small to clone to despite both being 64GB’s then simply use step 3 of the “Increase Space Allocation” tutorial to copy the entire application area over to a new USB.  This only considers the size of the application files when measuring the space requirement and not the size of the USB
 
-SWAP File tutorial to create more RAM
+•	Download Balena Etcher so you can clone the original disk image onto the drive
+
+•	Boot the Jetson Nano with the new flashed image and note only 30GB of storage is allocated on the 64GB USB
+
+•	After booting up and getting onto your network and running the usual SUDO update and upgrade and clean commands and once you know all your software is up to date then;
+
+•	Remove LIBRE office and remove Thunderbird if you wish (not needed anymore because you have space after this exercise but if you want to google how to do this in command line)
+
+•	I normally remove Chrome and add Firefox as well
+
+•	Then do the following sequentially to create an optimal Jetson Nano
+
+1.	SWAP File tutorial to create more RAM   
+2.  Increase space allocation Tutorial to create more space
+3.  Upgrade Jetpack to 4.4.1 Tutorial
+4.  Install Visual Studio Code (not Code-OSS this takes too much resources)
+5.  Install python3 framework in VS Code and python interpreter
+6.  Install Numpy, MatplotLIB (this of for the Paul McWhorter tutorials)
+7.  You don’t have to install CV2 anymore as you are running 4.1.1 already (it does on mine but if not Paul McWhorter has a video on this I think Lesson 8 or 9)
+8.  Create a back up the USB by cloning it using Balena Etcher OR if you struggle with the size matching of the USB i.e. Balena keeps saying your USB is too small to clone to despite both being 64GB’s then simply use step 3 of the “Increase Space Allocation” tutorial to copy the entire application area over to a new USB.  This only considers the size of the application files when measuring the space requirement and not the size of the USB
+
+**SWAP File tutorial to create more RAM**
+
 If you have not installed GIT Clone as yet you have to do so now in order to clone GIT repo’s.  Use this command line:
 **Sudo apt-get install git**
 The GIT repository to install the Swap File Software is located at this link:
@@ -41,10 +52,14 @@ sudo reboot now**
 Refer to this tutorial for more instructions:
 **https://jetsonhacks.com/2019/04/14/jetson-nano-use-more-memory/**
 
-Increase space allocation Tutorial to create more space
+**Increase space allocation Tutorial to create more space**
+
 The tutorial resides at this link:
+
 **https://github.com/JetsonHacksNano/rootOnUSB.git**
+
 Things you must consider when following the tutorial.  I note them upfront before you begin and as you start down the tutorial you will see where the points fit into the bigger picture:
+
 1.	Keep track of what USB has what directory.  In my example the new USB I was writing to was a second USB on the Nano (because I don’t boot from SD Card like some models I have the 4GB B01 board) and as such the file path after format is /dev/sdb1.  Its important to not this because you change the root boot folder in this tutorial and this context matters
 2.	This is only to note if you specify the boot sequence using the UUID else ignore.  The tutorial uses the path which correct for being able to swap USB’s between backup or not.  It will make sense as you go through the tutorial.  I followed the tutorial 100% so this note I am making is for any future user who does it with the UUID.  Keep track to the UUID for the new USB you want to use to boot up with in the future because you once again specify the physical boot up device to consider when you modify the boot folder by specifying the UUID.  Important to remember is that because you tell the boot folder to boot from a very specific piece of hardware in future if this corrupts you will have to recover first by starting with a fresh flashed USB and then booting into Ubuntu and following this tutorial again.  You can go straight to the step where you modify the boot folder to point to the backup USB you created post all of these setup steps were done.
 
@@ -53,10 +68,13 @@ Clone the software from this repo:
 
 Change directories to get into the repo with CD command
 **cd rootOnUSB**
+
 Watch the tutorial for the remaining steps:
 **https://www.youtube.com/watch?v=J9EJ52Za7IE**
+
 Below is the README steps described from GIT Hub
-rootOnUSB
+
+**rootOnUSB**
 Set rootfs to be on a USB drive
 **Original article on JetsonHacks: https://wp.me/p7ZgI9-317**
 WARNING: This is a low level system change. You may have issues which are not easily solved. You should do this working on a freshly flashed micro SD card, and certainly do not attempt this with valuable data on the card itself. Assume that if this does not work, you may have to flash the micro SD card again. A serial debug console is useful if things go wrong.
@@ -89,22 +107,31 @@ APPEND ${cbootargs} root=LABEL=JetsonNanoSSD500 rootwait rootfstype=ext4
 APPEND ${cbootargs} root=/dev/sda1 rootwait rootfstype=ext4
 The first entry is most specific, the last most generic. Note that you are not guaranteed that a USB device is enumerated in a certain order and will always have the same device path. That is, if you leave another USB drive plugged in along with your root disk when you boot the Jetson, the root disk may have a different path than originally, such as /dev/sdb1.
 Also, there is a convenience file: diskUUID.sh which will determine the UUID of a given device. This is useful for example to determine the UUID of the USB drive. Note: If the UUID returned is not similar in length to the above example, then it is likely that the device is not formatted as ext4.
+
 $ ./diskUUID.sh
+
 While this defaults to sda1 (/dev/sda1), you can also determine other drive UUIDs. The /dev/ is assumed, use the -d flag. For example:
+
 $ ./diskUUID.sh -d sdb1
+
 You may find this information useful for setting up the extlinux.conf file
 
-Upgrade Jetpack to 4.4.1
+**Upgrade Jetpack to 4.4.1**
+
 The following steps are described to upgrade Jetpack to any version.  It is important to note however that Ubuntu 18.04 LS can only support up to a certain Jetpack level so do not go beyond that you will corrupt your install as Ubuntu 20.04 will be needed which the Jetson Nano cannot run (well at least not at the time of me doing all this).  Compatibility can be checked at the following link:
-https://www.stereolabs.com/blog/nvidia-jetson-l4t-and-jetpack-support/
+
+**https://www.stereolabs.com/blog/nvidia-jetson-l4t-and-jetpack-support/**
+
 As reference I followed the steps below but not I could go to 32.6 as the version to modify in nvidia repo per below but have not tried this at the time of making this document.  
+
 The tutorial for this can be found at the following link:
-https://code.luasoftware.com/tutorials/jetson-nano/upgrade-jetson-jetpack-to-44
-Screen Grabs as follows:
- 
+
+**https://code.luasoftware.com/tutorials/jetson-nano/upgrade-jetson-jetpack-to-4.4**
+
+Screen Grabs as follows: (sorry cannot load them here only in word document but the link has them) 
  
 
-Install Visual Studio Code (Not Code-OSS)
+**Install Visual Studio Code (Not Code-OSS)**
 
 A note to remember here is after you have installed Visual Studio you must add a python3 framework and the interpreter to it.  Not listing those steps here you can figure it out quite easily the package prompts you on first boot.  The link to install VS Code is found at the following location:
 https://github.com/JetsonHacksNano/installVSCode
@@ -121,15 +148,21 @@ Install Visual Studio Code
 Installs Visual Studio Code on the Jetson, with no other extensions enabled:
 $ ./installVSCode.sh
 Running Visual Studio Code
+
 There are two ways to run Visual Studio Code. To run Visual Studio Code after installation open it from the application launcher or open a Terminal and exectute:
 $ code
 
-Install Matplot Lib and Numpy
-Sudo apt-get install python-matplotlib
-Sudo apt-get install python3-numpy
+
+**Install Matplot Lib and Numpy**
+
+**Sudo apt-get install python-matplotlib**
+**Sudo apt-get install python3-numpy**
+
 Note here that I think installing Matplot lib first automatically installs Numpy so if you get errors don’t worry you can check the versions that are installed and figure it out.  
 
 Create backup of all the above
+
 Once you have completed all the above run the usual sudo update and upgrade and clean commands to ensure a nice up to date environment.  You will get some warnings on nvidia lt4 but you can ignore them.  They relate to wanting UBUNTU 20.04 to run better with.  Ensure you date and time regions are set to RSA (sorry just me being OCD) and only backup once you know you have done all the little other tweaks you would want done so next time you recover from the backup USB you don’t have to start from ground zero again.
 
-Good luck hope this helps.cd
+
+Good luck hope this helps
